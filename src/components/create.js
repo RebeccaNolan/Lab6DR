@@ -1,4 +1,5 @@
 import { useState } from "react";
+import axios from "axios";
 
 const Create = () => {
 
@@ -6,11 +7,22 @@ const Create = () => {
     const [year, setYear] = useState('');
     const [poster, setPoster] = useState('');
 
+    // create.js
     const handleSubmit = (e) => {
-        e.preventDefault();
-        const movie = {title,year,poster};
-        console.log(movie);
-    }
+    e.preventDefault();
+    
+    console.log(`Title: ${title}, Year: ${year}, Poster: ${poster}`);
+    
+    const movie = {
+      title: title,
+      year: year,
+      poster: poster
+    };
+    
+    axios.post('http://localhost:4000/api/movies', movie) //call our own API
+      .then((res) => console.log(res.data))
+      .catch((err) => console.log(err.data));
+  };
 
     return (
         <div>
