@@ -1,26 +1,31 @@
 import { useState } from "react";
 import axios from "axios";
 
+//renders form to add a movie by sending data to the backend API
 const Create = () => {
 
+    //declaring state variables to hold form inputs
     const [title, setTitle] = useState('');
     const [year, setYear] = useState('');
     const [poster, setPoster] = useState('');
 
-    // create.js
+    // triggered when form is submitted
     const handleSubmit = (e) => {
     e.preventDefault();
-    
+
+        //logs current values for debugging
     console.log(`Title: ${title}, Year: ${year}, Poster: ${poster}`);
-    
+
+    //object representing new movie to be sent to the API
     const movie = {
       title: title,
       year: year,
       poster: poster
     };
-    
-    axios.post('http://localhost:4000/api/movies', movie) //call our own API
-      .then((res) => console.log(res.data))
+
+    //sends POST req to API to create new movie with form data
+    axios.post('http://localhost:4000/api/movies', movie) //call our backend API
+      .then((res) => console.log(res.data)) //logs response from server if successful
       .catch((err) => console.log(err.data));
   };
 
